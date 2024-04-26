@@ -1,7 +1,7 @@
 import './App.css'
 //import ButtonFatec from './components/ButtonFatec'
 //import CustomInput from './components/CustomInput'
-import Formulario from './components/Formulario'
+import Formulario from './components/formulario'
 
 function App() {
   return (

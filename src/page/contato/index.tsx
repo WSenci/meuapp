@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Formulario from "../../components/Formulario";
+import Formulario from '../../components/formulario';
 
 function Contato() {
     return (
