@@ -1,5 +1,5 @@
 import { Box, Button, Center, Checkbox, Input, Spacer, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from "../../helpers/axios";
 import { PostTarefa } from "../../interfaces/tarefa";
 
@@ -9,12 +9,13 @@ interface Props {
 
 function TopoTask({ carregarLista }: Props) {
     const [nomeTask, setNomeTask] = useState('')
+    const [realizadaTarefa, setRealizadaTarefa] = useState(false)
 
     function adicionarTask() {
         if (nomeTask != '') {
             const novaTarefa: PostTarefa = {
                 title: nomeTask,
-                completed: false
+                completed: realizadaTarefa
             }
             api.post('/task', novaTarefa)
                 .then(() => {
@@ -23,6 +24,11 @@ function TopoTask({ carregarLista }: Props) {
                 })
         }
     }
+
+    const inputTarefa = useRef<HTMLInputElement | null>(null)
+    useEffect(() => {
+        if(inputTarefa.current) inputTarefa.current.focus()
+    }, [])
 
     return (
         <>
@@ -33,7 +39,7 @@ function TopoTask({ carregarLista }: Props) {
                 </Center>
                 <Spacer />
                 <Center>
-                    <Checkbox>Realizada?</Checkbox>
+                    <Checkbox onChange={(evento)=> setRealizadaTarefa(evento.target.checked)}>Realizada?</Checkbox>
                 </Center>
                 <Button onClick={adicionarTask} colorScheme='blue'>Inserir</Button>
             </Box>
