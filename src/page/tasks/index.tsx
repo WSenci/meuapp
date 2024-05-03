@@ -23,8 +23,12 @@ function Tasks() {
 
     function apagarTask(id: number) {
         api.delete(`/tasks/${id}`)
-            .then(() => {
-                carregarLista()
+            .then(resposta => {
+                if (resposta.status == 204) {
+                    carregarLista()
+                } else {
+                    alert('Erro ao remover!')
+                }
             })
             .catch(erro => {
                 console.log(erro)
