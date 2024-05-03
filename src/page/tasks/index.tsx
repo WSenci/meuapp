@@ -35,6 +35,14 @@ function Tasks() {
             })
     }
 
+    function alterarStatus(tarefa: Tarefa) {
+        tarefa.completed = !tarefa.completed
+        api.put(`/tasks/${tarefa.id}`, tarefa)
+            .then(() => {
+                carregarLista()
+            })
+    }
+
     return (
         <>
             <Layout>
@@ -44,7 +52,7 @@ function Tasks() {
                 <hr />
                 {
                     tasks.map((task) => (
-                        <Task key={task.id} apagarTask={apagarTask} label={task.title} idTarefa={task.id} />
+                        <Task key={task.id} apagarTask={apagarTask} alterarStatus={alterarStatus} tarefa={task} />
                     ))
                 }
             </Layout>
