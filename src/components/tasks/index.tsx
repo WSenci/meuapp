@@ -1,22 +1,23 @@
-import { Center, Spacer, Text } from '@chakra-ui/react'
+import { Button, Center, Spacer, Text } from '@chakra-ui/react'
 import BoxTask from '../boxTask'
-import ButtonTask from '../buttonTask'
 
 interface Props {
     label: string
+    idTarefa: number
+    apagarTask(id: number): void
 }
 
-function Task({ label }: Props) {
+function Task({ label, idTarefa, apagarTask }: Props) {
     return (
         <BoxTask>
             <Center>
                 <Text fontSize='20px'>
-                    {label}
+                    {idTarefa} - {label}
                 </Text>
             </Center>
             <Spacer />
-            <ButtonTask type='button' label='Pendente' color='red' />
-            <ButtonTask type='button' label='Excluir' color='red' />
+            <Button colorScheme='green'>Remover</Button>
+            <Button onClick={() => apagarTask(idTarefa)} colorScheme='red'>Remover</Button>
         </BoxTask>
     )
 }

@@ -1,25 +1,44 @@
 import { Link } from "react-router-dom"
 import Task from "../../components/tasks"
 import TopoTask from "../../components/topoTask"
+import Layout from "../../components/layout"
+import { useEffect, useState } from "react"
+import { Tarefa } from "../../interfaces/tarefa"
+import api from "../../helpers/axios"
 
 function Tasks() {
+    const [tasks, setTasks] = useState<Tarefa[]>([])
+
+    async function carregarLista() {
+        const resposta = await api.get('/task')
+
+        if (resposta.status == 200) {
+            setTasks(resposta.data)
+        }
+    }
+
+    useEffect(() => {
+        carregarLista()
+    }, [])
+
+    function apagarTask(id: number) {
+        const tasksAtualizadas = tasks.filter((task) => task.id !== id)
+        setTasks(tasksAtualizadas)
+    }
+
     return (
         <>
-            <Link to='/'>Voltar para Home</Link>
-            <hr />
-            <TopoTask />
-            <hr />
-            <Task label="Tarefa 1" />
-            <Task label="Tarefa 2" />
-            <Task label="Tarefa 3" />
-            <Task label="Tarefa 4" />
-            <Task label="Tarefa 5" />
-            <Task label="Tarefa 6" />
-            <Task label="Tarefa 7" />
-            <Task label="Tarefa 8" />
-            <Task label="Tarefa 9" />
-            <Task label="Tarefa 10" />
-            <Task label="Tarefa 11" />
+            <Layout>
+                <Link to='/'>Voltar para Home</Link>
+                <hr />
+                <TopoTask tasks={tasks} setTasks={setTasks} />
+                <hr />
+                {
+                    tasks.map((task) => (
+                        <Task key={task.id} apagarTask={apagarTask} label={task.title} idTarefa={task.id} />
+                    ))
+                }
+            </Layout>
         </>
     )
 }
