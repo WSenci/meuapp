@@ -10,7 +10,7 @@ function Tasks() {
     const [tasks, setTasks] = useState<Tarefa[]>([])
 
     async function carregarLista() {
-        const resposta = await api.get('/task')
+        const resposta = await api.get('/tasks')
 
         if (resposta.status == 200) {
             setTasks(resposta.data)
@@ -22,7 +22,7 @@ function Tasks() {
     }, [])
 
     function apagarTask(id: number) {
-        api.delete(`/task/${id}`)
+        api.delete(`/tasks/${id}`)
             .then(() => {
                 carregarLista()
             })
