@@ -1,6 +1,7 @@
 import { Box, Button, Center, Checkbox, Input, Spacer, Text } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import api from "../../helpers/axios";
+import { PostTarefa } from "../../interfaces/tarefa";
 
 interface Props {
     carregarLista(): void
@@ -11,7 +12,7 @@ function TopoTask({ carregarLista }: Props) {
 
     function adicionarTask() {
         if (nomeTask != '') {
-            const novaTarefa = {
+            const novaTarefa: PostTarefa = {
                 title: nomeTask,
                 completed: false
             }

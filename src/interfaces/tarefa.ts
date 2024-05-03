@@ -3,3 +3,8 @@ export interface Tarefa {
     title: string
     completed: boolean
 }
+
+export interface PostTarefa {
+    title: string
+    completed?: boolean
+}

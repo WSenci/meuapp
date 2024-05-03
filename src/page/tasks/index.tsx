@@ -22,8 +22,13 @@ function Tasks() {
     }, [])
 
     function apagarTask(id: number) {
-        const tasksAtualizadas = tasks.filter((task) => task.id !== id)
-        setTasks(tasksAtualizadas)
+        api.delete(`/task/${id}`)
+            .then(() => {
+                carregarLista()
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
 
     return (
@@ -31,7 +36,7 @@ function Tasks() {
             <Layout>
                 <Link to='/'>Voltar para Home</Link>
                 <hr />
-                <TopoTask tasks={tasks} setTasks={setTasks} />
+                <TopoTask carregarLista={carregarLista} />
                 <hr />
                 {
                     tasks.map((task) => (
