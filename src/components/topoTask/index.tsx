@@ -17,7 +17,7 @@ function TopoTask({ carregarLista }: Props) {
                 title: nomeTask,
                 completed: realizadaTarefa
             }
-            api.post('/task', novaTarefa)
+            api.post('/tasks', novaTarefa)
                 .then(() => {
                     setNomeTask('')
                     carregarLista()
